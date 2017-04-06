@@ -1,0 +1,484 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>TNW - Git History</title>
+
+    <meta name="description" content="Presentation about different techniques to work with Git history">
+    <meta name="author" content="Javier Negre <javi@tnwlabs.com>">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link media="all" type="text/css" rel="stylesheet" href="./css/reveal/reveal.min.css">
+    <link id="theme" media="all" type="text/css" rel="stylesheet" href="./css/green-black.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="./css/reveal/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>Git History</h1>
+            <!-- h3>HTML Presentations Made Easy</h3 -->
+            <p>
+                <small>Javier Negre @ tnwlabs</small>
+            </p>
+        </section>
+
+        <section>
+            <section>
+                <h2>Staging area</h2>
+                <div class="m-t-m">
+                    <div class="col-12-3">
+                        <h4>Git directory:</h4>
+                        <div class="git">
+                            <div class="grey"># On branch master</div>
+                            <div>nothing to commit (working directory clean)</div>
+                        </div>
+                        <h4>Working directory:</h4>
+                        <div class="git">
+                            <div class="grey"># Changes not staged for commit:</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-1.php</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-2.js</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-3.css</div>
+                        </div>
+                    </div>
+                    <div class="col-3-3">
+                        <div class="m-t-m">
+                            <img src="./img/git-history/staging-area.png">								</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>Staging area</h2>
+                <div class="m-t-m">
+                    <div class="col-12-3">
+                        <h4>Staging area + working directory:</h4>
+                        <div class="git">
+                            <div>$ git add change-in-file-1.php</div>
+                            <div>$ git status</div>
+                            <div class="grey"># Changes to be committed:</div>
+                            <div class="green">&nbsp;&nbsp;modified:  change-in-file-1.php</div>
+                            <div class="grey"># Changes not staged for commit:</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-2.js</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-3.css</div>
+                        </div>
+                        <div class="git">
+                            <div>$ git commit -m "Change in file 1"</div>
+                            <div>$ git status</div>
+                            <div class="grey"># Changes not staged for commit:</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-2.js</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-3.css</div>
+                        </div>
+                    </div>
+                    <div class="col-3-3">
+                        <div class="m-t-m">
+                            <img src="./img/git-history/staging-area.png">								</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>Staging area</h2>
+                <div class="m-t-m">
+                    <div class="col-12-3">
+                        <h4>Staging area + working directory:</h4>
+                        <div class="git">
+                            <div>$ git add -p</div>
+                            <div class="grey">&nbsp;&nbsp;...&nbsp;&nbsp;</div>
+                            <div class="grey"># Changes to be committed:</div>
+                            <div class="green">&nbsp;&nbsp;modified:  change-in-file-2.js</div>
+                            <div class="grey"># Changes not staged for commit:</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-2.js</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-3.css</div>
+                        </div>
+                        <div class="git">
+                            <div>$ git commit -m "New function 'a' in file 2"</div>
+                            <div>$ git status</div>
+                            <div class="grey"># Changes not staged for commit:</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-2.js</div>
+                            <div class="red">&nbsp;&nbsp;modified:  change-in-file-3.css</div>
+                        </div>
+                    </div>
+                    <div class="col-3-3">
+                        <h4>change-in-file-2.js</h4>
+                        <div class="js">
+                            <div class="green">function a () {</div>
+                            <div class="green">&nbsp;&nbsp;console.log("Hey, I'm a");</div>
+                            <div class="green">&nbsp;&nbsp;// And I'll be staged</div>
+                            <div class="green">}</div>
+                            <div>&nbsp;</div>
+                            <div class="red">function b () {</div>
+                            <div class="red">&nbsp;&nbsp;console.log("Hey, I'm b");</div>
+                            <div class="red">&nbsp;&nbsp;// But I'm not ready yet</div>
+                            <div class="red">}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>Staging area</h3>
+                <h2>git diff</h2>
+                <div class="col-12-3 m-t-l">
+                    <div class="git">
+                        <div>$ git diff</div>
+                        <div class="grey"># Shows working directory differences</div>
+                        <div>&nbsp;</div>
+                        <div>$ git diff --staged <span class="grey"># --cached also works</span></div>
+                        <div class="grey"># Shows staging area differences</div>
+                    </div>
+                </div>
+                <div class="col-3-3 m-t-m">
+                    <img src="./img/git-history/staging-area.png">						</div>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h2>Atomic commits</h2>
+                <div class="m-t-l">
+                    <div class="git">
+                        <div>$ git log --oneline</div>
+                        <div><span class="orange">109efcf</span> Remove not so AWESOME feature 1 :(</div>
+                        <div><span class="orange">7454c97</span> Add new AWESOME page and features</div>
+                    </div>
+                    <div class="git">
+                        <div>$ git log --oneline</div>
+                        <div><span class="orange">31cf49c</span> Remove not so AWESOME feature 1, reverts 8dddd5f :(</div>
+                        <div><span class="orange">77ed5a3</span> Add AWESOME feature 2 :)</div>
+                        <div><span class="orange">8dddd5f</span> Add AWESOME feature 1 :)</div>
+                        <div><span class="orange">dffc429</span> Add new AWESOME view</div>
+                        <div><span class="orange">c80078c</span> Add new AWESOME controller</div>
+                        <div><span class="orange">63a8f26</span> Add new AWESOME model</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>Atomic commits</h3>
+                <h2>git add -p</h2>
+
+                <div class="m-t-m">
+                    <div class="git">
+                        <div>$ git add -p</div>
+                        <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;... code ...</div>
+                        <div class="red">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line removed #1</div>
+                        <div class="green">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line added #1</div>
+                        <div class="green">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line added #2</div>
+                        <div class="grey"> &nbsp;&nbsp;&nbsp;&nbsp;... code ...</div>
+                        <div><span class="blue">Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?</span> y</div>
+                        <div class="grey"> &nbsp;&nbsp;&nbsp;&nbsp;... code ...</div>
+                        <div class="red">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line removed #2</div>
+                        <div class="green">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line added #3</div>
+                        <div class="grey"> &nbsp;&nbsp;&nbsp;&nbsp;... code ...</div>
+                        <div><span class="blue">Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?</span> n</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>Atomic commits</h3>
+                <h2>git add -p options</h2>
+                <div class="m-t-s">
+                    <div class="git">
+                        <div><span class="blue">Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?</span> ?</div>
+                        <div>y - stage this hunk</div>
+                        <div>n - do not stage this hunk</div>
+                        <div>q - quit; do not stage this hunk nor any of the remaining ones</div>
+                        <div>a - stage this hunk and all later hunks in the file</div>
+                        <div>d - do not stage this hunk nor any of the later hunks in the file</div>
+                        <div>g - select a hunk to go to</div>
+                        <div>/ - search for a hunk matching the given regex</div>
+                        <div>j - leave this hunk undecided, see next undecided hunk</div>
+                        <div>J - leave this hunk undecided, see next hunk</div>
+                        <div>k - leave this hunk undecided, see previous undecided hunk</div>
+                        <div>K - leave this hunk undecided, see previous hunk</div>
+                        <div>s - split the current hunk into smaller hunks</div>
+                        <div>e - manually edit the current hunk</div>
+                        <div>? - print help</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>Atomic commits</h3>
+                <h2>Useful commands</h2>
+                <div class="m-t-m">
+                    <div class="git">
+                        <div>$ git add -i</div>
+                        <div class="grey"># Interactive mode to manage the staging area</div>
+                        <div class="grey"># Useful to add untracked files</div>
+                    </div>
+                    <div class="git">
+                        <div>$ git reset -p</div>
+                        <div class="grey"># Moves code hunks from 'staging area' to 'working directory'</div>
+                    </div>
+                    <div class="git git-warning">
+                        <div>$ git checkout -p</div>
+                        <div class="grey"># Removes code hunks from the 'working directory'</div>
+                        <div class="grey"># Be careful! You can remove valid code by accident</div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Managing local history</h2>
+
+                <div class="m-t-l">
+                    <h4 class="centered">
+                        local commits = commits that have not been pushed to origin
+                    </h4>
+                </div>
+            </section>
+
+            <section>
+                <h3>Managing local history</h3>
+                <h2>git commit --amend</h2>
+
+                <div class="m-t-s">
+                    <div class="git">
+                        <div>$ git commit -m "AWESOME feature is ready to rock"</div>
+                        <div><span class="orange">9d4361a1</span> AWESOME feature is ready to rock</div>
+                    </div>
+                    <div class="git">
+                        <div>$ git add file_modified.php</div>
+                        <div>$ git diff --staged</div>
+                        <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;... code ...</div>
+                        <div class="red">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var_dump('This text should not be displayed');</div>
+                        <div class="grey"> &nbsp;&nbsp;&nbsp;&nbsp;... code ...</div>
+                    </div>
+                    <div class="git">
+                        <div>$ git commit --amend</div>
+                        <div><span class="orange">3ea652b9</span> AWESOME feature is ready to rock</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Managing local history</h3>
+                <h2>git cherry-pick</h2>
+
+                <div class="col-123-4 m-t-s">
+                    <div class="git">
+                        <div>$ git commit -m "New feature in master"
+                            <span class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1</span>
+                        </div>
+                        <div>$ git checkout master -b dev</div>
+                        <div class="grey"> &nbsp;...</div>
+                        <div>$ git commit -m "New feature in dev, 1st commit"
+                            <span class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2</span>
+                        </div>
+                        <div class="grey"> &nbsp;...</div>
+                        <div>$ git commit -m "New feature in dev, WIP"
+                            <span class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#3</span>
+                        </div>
+                        <div class="grey"> &nbsp;...</div>
+                        <div>$ git commit -m "Quick hotfix for new feature in master"
+                            <span class="red">&nbsp;#4</span>
+                        </div>
+                    </div>
+                    <div class="git">
+                        <div class="grey">// Dev branch log:</div>
+                        <div><span class="orange">0452505</span> Quick hotfix for new feature in master</div>
+                        <div><span class="orange">4e31657</span> New feature in dev, WIP</div>
+                    </div>
+                </div>
+                <div class="col-4-4 m-t-m">
+                    <img src="./img/git-history/cherrypick-1.png">						</div>
+            </section>
+
+            <section>
+                <h3>Managing local history</h3>
+                <h2>git cherry-pick</h2>
+
+                <div class="col-123-4 m-t-l">
+                    <div class="git">
+                        <div>$ git checkout master</div>
+                        <div>$ git cherry-pick 0452505</div>
+                        <div>$ git log --oneline</div>
+                        <div><span class="orange">62c5c15</span> Quick hotfix for new feature in master
+                            <span class="red"># new hash!</span>
+                        </div>
+                        <div><span class="orange">51b5a11</span> New feature in master</div>
+                        <div class="grey"> &nbsp;...</div>
+                    </div>
+                </div>
+                <div class="col-4-4 m-t-m">
+                    <img src="./img/git-history/cherrypick-2.png">						</div>
+            </section>
+
+            <section>
+                <h3>Managing local history</h3>
+                <h2>git reset --hard</h2>
+
+                <div class="col-123-4 m-t-s">
+                    <div class="git">
+                        <div class="grey"># Back to dev branch</div>
+                        <div><span class="orange">0452505</span> Quick hotfix for new feature in master
+                            &nbsp;
+                            <span class="red"># HEAD</span>
+                        </div>
+                        <div><span class="orange">4e31657</span> New feature in dev, WIP
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD~1</span>
+                        </div>
+                        <div><span class="orange">fce3412</span> New feature in dev, 1st commit
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD~2</span>
+                        </div>
+                    </div>
+                    <div class="git git-warning">
+                        <div>$ git reset --hard HEAD~1</div>
+                        <div class="grey"># or </div>
+                        <div>$ git reset --hard 4e31657</div>
+                        <div class="grey"># You'll remove the commit and its code!</div>
+                    </div>
+                    <div class="git">
+                        <div>$ git log</div>
+                        <div><span class="orange">4e31657</span> New feature in dev, WIP
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD</span>
+                        </div>
+                        <div><span class="orange">fce3412</span> New feature in dev, 1st commit
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD~1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4-4 m-t-s">
+                    <img src="./img/git-history/cherrypick-3.png">						</div>
+            </section>
+
+            <section>
+                <h3>Managing local history</h3>
+                <h2>git reset</h2>
+
+                <div class="m-t-m">
+                    <div class="git">
+                        <div><span class="orange">4e31657</span> New feature in dev, WIP
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD</span>
+                        </div>
+                        <div><span class="orange">fce3412</span> New feature in dev, 1st commit
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD~1</span>
+                        </div>
+                    </div>
+                    <div class="git">
+                        <div>$ git reset HEAD</div>
+                        <div>$ git log --oneline</div>
+                        <div><span class="orange">fce3412</span> New feature in dev, 1st commit
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="red"># HEAD</span>
+                        </div>
+                    </div>
+                    <div class="git">
+                        <div>$ git status</div>
+                        <div class="grey"># Changes to be committed:</div>
+                        <div class="green">&nbsp;&nbsp;modified:  file-added-in-dev-branch.js</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Managing local history</h3>
+                <h2>git revert</h2>
+                <div class="m-t-m">
+                    <div class="col-12-3">
+                        <div class="git">
+                            <div><span class="orange">ff3ebe1</span> Add banner images</div>
+                            <div><span class="orange">02cb308</span>
+                                Set font to Comic Sans<span class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1</span></div>
+                            <div><span class="orange">7a1d1b7</span> Add users table</div>
+                        </div>
+                        <div class="git">
+                            <div>$ git revert 02cb308</div>
+                        </div>
+                        <div class="git">
+                            <div><span class="orange">cf09a5c</span>
+                                Revert "Set font to Comic Sans"<span class="red">&nbsp;&nbsp;&nbsp;#2</span></div>
+                            <div><span class="orange">ff3ebe1</span> Add banner images</div>
+                            <div><span class="orange">02cb308</span>
+                                Set font to Comic Sans<span class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1</span></div>
+                            <div><span class="orange">7a1d1b7</span> Add users table</div>
+                        </div>
+                    </div>
+                    <div class="col-3-3">
+                        <h4>#1</h4>
+                        <div class="js">
+                            <div class="red">-&nbsp;&nbsp;font-family: Helvetica;</div>
+                            <div class="green">+&nbsp;&nbsp;font-family: Comic-Sans;</div>
+                        </div>
+                        <h4 class="m-t-xl">#2</h4>
+                        <div class="js m-t-m">
+                            <div class="red">-&nbsp;&nbsp;font-family: Comic-Sans;</div>
+                            <div class="green">+&nbsp;&nbsp;font-family: Helvetica;</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <section>
+            <h2>Questions?</h2>
+            <p class="centered link-to-slides">
+                More at <a href="/#slides" target="_blank">negre.co#slides</a>
+            </p>
+        </section>
+
+    </div>
+
+</div>
+
+<div class="top-nav">
+    <a href="/#slides">&#9666; negre.co</a>
+</div>
+
+<script src="./js/reveal/lib/head.min.js"></script>
+<script src="./js/reveal/reveal.min.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      // { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      // { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+
+</script>
+
+</body>
+</html>

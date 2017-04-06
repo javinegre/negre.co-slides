@@ -1,0 +1,452 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>TNW - Git - Merge vs Rebase</title>
+
+    <meta name="description" content="Git - Merge vs Rebase">
+    <meta name="author" content="Javier Negre <javi@tnwlabs.com>">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link media="all" type="text/css" rel="stylesheet" href="./css/reveal/reveal.min.css">
+    <link id="theme" media="all" type="text/css" rel="stylesheet" href="./css/green-black.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="./css/reveal/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides git-history-2">
+
+        <section>
+            <h2>Git</h2>
+            <h1>Merge vs Rebase</h1>
+
+            <p class="centered">
+                <small>Javier Negre @ tnwlabs</small>
+            </p>
+        </section>
+
+        <section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/initial-1.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">master</span> $ git checkout -b dev
+                </p>
+                <div class="comparison">
+                    master = dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/initial-2.png"><div class="slide-caption">
+                <p class="command-line">
+                    # Commiting changes
+                </p>
+                <div class="comparison">
+                    master < dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/initial-3.png"><div class="slide-caption">
+                <p class="command-line">
+                    # Hotfixes in master
+                </p>
+
+                <div class="comparison">
+                    master <> dev
+                </div>
+            </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    $ git merge
+                </h2>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/initial-3.png"><div class="slide-caption">
+                <p class="command-line">
+                    # Initial scheme
+                </p>
+                <div class="comparison">
+                    master <> dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/merge-1.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">master</span> $ git merge dev
+                </p>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/merge-2.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">master</span> $ git merge dev
+                </p>
+            </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    $ git rebase
+                </h2>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/initial-3.png"><div class="slide-caption">
+                <p class="command-line">
+                    # Initial scheme
+                </p>
+                <div class="comparison">
+                    master <> dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/rebase-1.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">dev</span> $ git rebase master
+                </p>
+                <div class="comparison">
+                    master <> dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/rebase-2.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">dev</span> $ git rebase master
+                </p>
+                <div class="comparison">
+                    master < dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/rebase-3.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">master</span> $ git merge dev
+                </p>
+                <div class="comparison">
+                    master < dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/rebase-4.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">master</span> $ git merge dev
+                </p>
+                <div class="comparison">
+                    master = dev
+                </div>
+            </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    Why rebase and not merge?
+                </h2>
+            </section>
+
+            <section>
+                <p>Small features, developed within few days/weeks</p>
+                <p>Linear commit history</p>
+                <p>Cleaner history, without merge commits</p>
+                <p>Easier to debug ( $ git bisect )</p>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    $ git push
+                </h2>
+            </section>
+
+            <section>
+                <div class="git">
+                    <div>$ git push origin [local-branch]:[origin-branch]</div>
+                </div>
+
+                <div class="git">
+                    <div class="grey"># pushing current branch to origin/dev</div>
+                    <div>$ git push origin HEAD:dev</div>
+                </div>
+
+                <div class="git">
+                    <div class="grey"># pushing dev branch to origin/dev</div>
+                    <div>$ git push origin dev:dev</div>
+                    <div class="grey"># same as</div>
+                    <div>$ git push origin dev</div>
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    Rebasing from remote changes
+                </h2>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/remote-rebase-1.png"><div class="slide-caption">
+                <p class="command-line">
+                    &nbsp;
+                </p>
+                <div class="comparison">
+                    o/master < l/master
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/remote-rebase-2.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">*</span> $ git fetch
+                </p>
+                <div class="comparison">
+                    o/master <> l/master
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/remote-rebase-3.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/master</span>
+                    $ git push origin master
+                    <span class="rejected-command">x</span>
+                </p>
+                <div class="comparison">
+                    o/master <> l/master
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/remote-rebase-4.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/master</span> $ git rebase origin/master
+                </p>
+                <div class="comparison">
+                    o/master < l/master
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/remote-rebase-5.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/master</span> $ git push origin master
+                </p>
+                <div class="comparison">
+                    o/master = l/master
+                </div>
+            </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    Sharing a development branch
+                </h2>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-1.png"><div class="slide-caption">
+                <p class="command-line command-line-long">
+                    <span class="branch">l/master</span> $ git pull origin master; $ git checkout -b dev
+                </p>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-2.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/dev</span> $ git push origin dev
+                </p>
+                <div class="comparison">
+                    o/dev = l/dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-3.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/master</span> $ git pull origin master
+                </p>
+                <div class="comparison">
+                    o/dev = l/dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-4.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/dev</span> $ git rebase master
+                </p>
+                <div class="comparison">
+                    o/dev <> l/dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-5.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/dev</span>
+                    $ git push origin dev
+                    <span class="rejected-command">x</span>
+                </p>
+                <div class="comparison">
+                    o/dev <> l/dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-6.png"><div class="slide-caption">
+                <p class="command-line">
+                    <span class="branch">l/dev</span> $ git push -f origin dev
+                </p>
+                <div class="comparison">
+                    o/dev = l/dev
+                </div>
+            </div>
+            </section>
+
+            <section>
+                <img src="./img/git-merge-vs-rebase/force-push-7.png"><div class="slide-caption">
+                <p class="command-line">
+                    &nbsp;
+                </p>
+                <div class="comparison">
+                    o/dev = l/dev
+                </div>
+            </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>
+                    $ git push -f (force)
+                </h2>
+            </section>
+
+            <section>
+                <p>
+                    <span class="warning">Forcing a push is dangerous!</span>
+                    You might lose code by:
+                </p>
+                <ul>
+                    <li>Pushing a wrongly resolved conflict</li>
+                    <li>Overriding a remote branch with the wrong branch</li>
+                </ul>
+            </section>
+
+
+            <section>
+                <p>
+                    During panic mode:
+                </p>
+                <ul>
+                    <li>Create branches to test with</li>
+                    <li>Create backups</li>
+                </ul>
+                <p>
+                    Branches are cheap!
+                </p>
+                <div class="git">$ git checkout -b current-branch-backup-140928</div>
+            </section>
+
+        </section>
+
+        <section>
+            <h2>Questions?</h2>
+            <p class="centered link-to-slides">
+                More at <a href="/#slides" target="_blank">negre.co#slides</a>
+            </p>
+        </section>
+
+    </div>
+
+</div>
+
+<div class="top-nav">
+    <a href="/#slides">&#9666; negre.co</a>
+</div>
+
+<script src="./js/reveal/lib/head.min.js"></script>
+<script src="./js/reveal/reveal.min.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      // { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      // { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+
+</script>
+
+</body>
+</html>
