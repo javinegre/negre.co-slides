@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.send(`404 - ${req.url} route not found`);
+  res.redirect(404, 'http://negre.co');
 });
 
 module.exports = app;
